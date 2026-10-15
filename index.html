@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soprani Trasporti — Trasporti nazionali, internazionali e deposito</title>
+  <meta name="description" content="Soprani Trasporti S.r.l. — dal 1996 autotrasporto merci in Italia e in Europa, logistica e magazzino a Cortenuova (BG). Richiedi un preventivo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== LOADER: il bilico attraversa lo schermo ===== -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-road">
+      <svg class="loader-truck" viewBox="0 0 240 70"><use href="#truck"/></svg>
+    </div>
+    <div class="loader-km"><span id="loaderKm">0</span> km</div>
+  </div>
+
+  <!-- ===== SVG riutilizzabili ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- Bilico con telone blu, vista laterale -->
+      <symbol id="truck" viewBox="0 0 240 70">
+        <rect x="2" y="6" width="168" height="44" rx="2" fill="#1F4FD1"/>
+        <rect x="2" y="6" width="168" height="44" rx="2" fill="url(#tarpShade)"/>
+        <g stroke="rgba(255,255,255,.18)" stroke-width="1">
+          <line x1="30" y1="6" x2="30" y2="50"/><line x1="58" y1="6" x2="58" y2="50"/>
+          <line x1="86" y1="6" x2="86" y2="50"/><line x1="114" y1="6" x2="114" y2="50"/>
+          <line x1="142" y1="6" x2="142" y2="50"/>
+        </g>
+        <text x="86" y="27" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="800" font-size="11" fill="#fff" letter-spacing="1">SOPRANI TRASPORTI</text>
+        <text x="86" y="39" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="500" font-size="5.5" fill="rgba(255,255,255,.8)" letter-spacing="1">NAZIONALI e INTERNAZIONALI – DEPOSITO</text>
+        <rect x="0" y="50" width="174" height="5" fill="#2b3446"/>
+        <path d="M178 22 h30 q10 0 16 8 l8 12 v14 h-54z" fill="#e9edf3"/>
+        <path d="M206 25 h-22 v14 h36z" fill="#9fb6d9"/>
+        <rect x="174" y="52" width="62" height="5" fill="#2b3446"/>
+        <g fill="#141a26"><circle cx="128" cy="58" r="8"/><circle cx="146" cy="58" r="8"/><circle cx="162" cy="58" r="8"/><circle cx="190" cy="58" r="8"/><circle cx="222" cy="58" r="8"/></g>
+        <g fill="#8a94a6"><circle cx="128" cy="58" r="3"/><circle cx="146" cy="58" r="3"/><circle cx="162" cy="58" r="3"/><circle cx="190" cy="58" r="3"/><circle cx="222" cy="58" r="3"/></g>
+      </symbol>
+      <linearGradient id="tarpShade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fff" stop-opacity=".14"/>
+        <stop offset="1" stop-color="#000" stop-opacity=".22"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav" id="nav">
+    <a href="#top" class="logo" aria-label="Soprani Trasporti — home">
+      <img class="logo-white" src="assets/logo-white.png" alt="Trasporti Soprani">
+      <img class="logo-blue" src="assets/logo.png" alt="" aria-hidden="true">
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#servizi">Servizi</a>
+      <a href="#percorso">Come lavoriamo</a>
+      <a href="#flotta">Flotta</a>
+      <a href="#lavora">Lavora con noi</a>
+      <a href="#contatti">Contatti</a>
+    </nav>
+    <a href="#preventivo" class="btn btn-small">Preventivo</a>
+    <button class="burger" id="burger" aria-label="Apri menu"><span></span><span></span></button>
+  </header>
+
+  <main id="top">
+
+    <!-- ===== 1. HERO: mappa Europa con rotte da Cortenuova → zoom sul piazzale ===== -->
+    <section class="hero" id="hero">
+      <div class="sticky">
+        <canvas id="mapCanvas" aria-hidden="true"></canvas>
+        <div class="hero-vignette"></div>
+        <div class="hero-photo" id="heroPhoto">
+          <img src="assets/rimorchi.jpg" alt="Semirimorchi Soprani Trasporti nel piazzale">
+          <div class="hero-zoom-label" id="zoomLabel">
+            <span class="mono">45.54° N · 9.79° E</span>
+            <strong>Il nostro piazzale di Cortenuova</strong>
+          </div>
+        </div>
+
+        <div class="hero-content" id="heroContent">
+          <p class="eyebrow"><span class="dot"></span>Cortenuova (BG) · dal 1996</p>
+          <h1 class="split" id="heroTitle">Dal 1996 portiamo le vostre merci in Italia e in Europa.</h1>
+          <p class="hero-sub">Autotrasporto conto terzi, logistica e magazzino. Un unico interlocutore, dal ritiro alla consegna.</p>
+          <div class="hero-cta">
+            <a href="#preventivo" class="btn">Richiedi un preventivo</a>
+            <a href="#servizi" class="btn btn-ghost">Scopri i servizi</a>
+          </div>
+        </div>
+
+        <div class="scroll-hint" id="scrollHint"><span class="mono">Scorri</span><i></i></div>
+      </div>
+    </section>
+
+    <!-- ===== 2. NUMERI (contachilometri) ===== -->
+    <section class="numbers">
+      <div class="wrap numbers-grid">
+        <div class="num">
+          <div class="odo" data-value="30"></div>
+          <p>anni di attività</p>
+        </div>
+        <div class="num">
+          <div class="odo" data-value="35"></div>
+          <p>persone tra autisti, magazzino e uffici</p>
+        </div>
+        <div class="num tbc" title="Da chiedere al cliente">
+          <div class="odo" data-value="0000"></div>
+          <p>m² di magazzino <em>(da chiedere)</em></p>
+        </div>
+        <div class="num">
+          <div class="odo odo-text">IT+EU</div>
+          <p>trasporti nazionali e internazionali</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. MANIFESTO: parole che si accendono con lo scroll ===== -->
+    <section class="manifesto" id="manifesto">
+      <div class="sticky">
+        <p class="manifesto-text" id="manifestoText">Non spostiamo solo bancali. Ogni carico è la produzione di un'azienda che conta su di noi: per questo da trent'anni lo trattiamo come se fosse nostro, da Cortenuova a tutta Europa.</p>
+      </div>
+    </section>
+
+    <!-- ===== 4. TITOLO GIGANTE ORIZZONTALE ===== -->
+    <section class="marquee" id="marquee">
+      <div class="marquee-track" id="marqueeTrack">
+        <span>Nazionali</span><i>·</i><span class="outline">Internazionali</span><i>·</i><span>Deposito</span><i>·</i><span class="outline">Nazionali</span><i>·</i><span>Internazionali</span>
+      </div>
+    </section>
+
+    <!-- ===== 5. SERVIZI ===== -->
+    <section class="services" id="servizi">
+      <div class="wrap">
+        <p class="eyebrow eyebrow-dark">Cosa facciamo</p>
+        <h2 class="section-title">Due servizi, un solo partner.</h2>
+        <div class="services-grid">
+          <article class="service-card reveal">
+            <span class="service-num mono">01</span>
+            <h3>Trasporto merci</h3>
+            <p>Autotrasporto per conto terzi su tutto il territorio nazionale e sulle tratte internazionali, con mezzi propri e autisti dipendenti.</p>
+            <ul>
+              <li>Spedizioni di bancali in tutta Italia</li>
+              <li>Bilici con semirimorchi telonati</li>
+              <li>Motrici per consegne più agili</li>
+              <li>Tratte Italia ↔ Europa</li>
+            </ul>
+            <a href="#preventivo" class="link-arrow">Chiedi un trasporto →</a>
+          </article>
+          <article class="service-card service-card-blue reveal">
+            <span class="service-num mono">02</span>
+            <h3>Logistica e magazzino</h3>
+            <p>Depositi a Cortenuova per stoccare la vostra merce e prepararla alla distribuzione, quando serve e quanto serve.</p>
+            <ul>
+              <li>Stoccaggio a breve e lungo periodo</li>
+              <li>Movimentazione e gestione stock</li>
+              <li>Preparazione ordini per la distribuzione</li>
+              <li>Deposito + trasporto in un unico flusso</li>
+            </ul>
+            <a href="#preventivo" class="link-arrow">Chiedi uno stoccaggio →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. IL VIAGGIO: strada che si disegna + camion che la percorre ===== -->
+    <section class="journey" id="percorso">
+      <div class="sticky">
+        <div class="journey-head">
+          <p class="eyebrow">Come lavoriamo</p>
+          <h2 class="section-title light">Dal vostro piazzale<br>a quello del cliente.</h2>
+        </div>
+        <svg class="road" id="road" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <path id="roadBase" d="M-40 420 C 180 420, 220 150, 420 160 S 640 400, 800 360 S 1020 110, 1240 120" />
+          <path id="roadDraw" d="M-40 420 C 180 420, 220 150, 420 160 S 640 400, 800 360 S 1020 110, 1240 120" />
+          <path id="roadDash" d="M-40 420 C 180 420, 220 150, 420 160 S 640 400, 800 360 S 1020 110, 1240 120" />
+          <g id="roadTruck">
+            <rect x="-26" y="-8" width="38" height="16" rx="2" fill="#3D7BFF"/>
+            <rect x="14" y="-7" width="12" height="14" rx="3" fill="#e9edf3"/>
+            <rect x="-26" y="-8" width="38" height="16" rx="2" fill="none" stroke="rgba(255,255,255,.4)"/>
+          </g>
+        </svg>
+        <ol class="stops" id="stops">
+          <li data-at="0.12"><span class="mono">01</span><strong>Ritiro</strong><p>Carichiamo nel giorno e nella fascia oraria concordati.</p></li>
+          <li data-at="0.38"><span class="mono">02</span><strong>Deposito</strong><p>Se serve, la merce resta nei nostri magazzini di Cortenuova.</p></li>
+          <li data-at="0.64"><span class="mono">03</span><strong>Distribuzione</strong><p>Prepariamo i carichi e pianifichiamo i giri.</p></li>
+          <li data-at="0.9"><span class="mono">04</span><strong>Consegna</strong><p>In Italia e in Europa, con un referente che segue il viaggio.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 7. MAGAZZINO: bancali che si impilano ===== -->
+    <section class="warehouse" id="magazzino">
+      <div class="sticky">
+        <div class="wrap warehouse-grid">
+          <div class="warehouse-text">
+            <p class="eyebrow eyebrow-dark">Il deposito</p>
+            <h2 class="section-title">Spazio per la vostra merce,<br>ordine per i vostri flussi.</h2>
+            <p>Bancali ricevuti, controllati, stoccati e pronti a ripartire. Sapete sempre dov'è la vostra merce e quando arriva a destinazione.</p>
+            <div class="pallet-counter"><span class="mono" id="palletCount">0</span><span>bancali a scaffale</span></div>
+          </div>
+          <svg class="iso" id="iso" viewBox="0 0 600 520" aria-hidden="true"></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8. FLOTTA ===== -->
+    <section class="fleet" id="flotta">
+      <div class="wrap">
+        <p class="eyebrow eyebrow-dark">La flotta</p>
+        <h2 class="section-title">Mezzi propri, autisti nostri.</h2>
+        <div class="fleet-grid">
+          <article class="fleet-card reveal">
+            <div class="fleet-img"><img src="assets/teloni-blu.jpg" alt="Semirimorchi telonati blu Soprani Trasporti" loading="lazy"></div>
+            <div class="fleet-body">
+              <span class="mono">01</span>
+              <h3>Semirimorchi telonati</h3>
+              <p>Teloni blu Soprani, fino a 33 bancali EUR per viaggio, su tratte nazionali e internazionali.</p>
+            </div>
+          </article>
+          <article class="fleet-card reveal">
+            <div class="fleet-img"><img src="assets/iveco-sway.jpg" alt="Trattore stradale Iveco Soprani Trasporti" loading="lazy" style="object-position:50% 40%"></div>
+            <div class="fleet-body">
+              <span class="mono">02</span>
+              <h3>Motrici Iveco</h3>
+              <p>Trattori stradali con i colori Soprani, guidati dai nostri autisti.</p>
+            </div>
+          </article>
+          <article class="fleet-card reveal">
+            <div class="fleet-img"><img src="assets/carico-laterale.jpg" alt="Telone scorrevole aperto per il carico laterale" loading="lazy"></div>
+            <div class="fleet-body">
+              <span class="mono">03</span>
+              <h3>Carico laterale</h3>
+              <p>Il telone scorrevole si apre su tutto il fianco: si carica e scarica comodamente con il muletto.</p>
+            </div>
+          </article>
+          <article class="fleet-card reveal tbc" title="Da confermare col cliente">
+            <div class="fleet-img fleet-img-svg">
+              <svg viewBox="0 0 240 70">
+                <rect x="30" y="10" width="140" height="40" rx="2" fill="#1F4FD1"/>
+                <rect x="10" y="30" width="18" height="4" fill="#cfd6e2"/><rect x="12" y="34" width="3" height="18" fill="#cfd6e2"/>
+                <rect x="172" y="50" width="40" height="5" fill="#2b3446"/><rect x="28" y="50" width="146" height="5" fill="#2b3446"/>
+                <path d="M176 22 h22 q8 0 12 8 l6 12 v12 h-40z" fill="#e9edf3"/>
+                <g fill="#141a26"><circle cx="70" cy="58" r="8"/><circle cx="140" cy="58" r="8"/><circle cx="195" cy="58" r="8"/></g>
+              </svg>
+            </div>
+            <div class="fleet-body">
+              <span class="mono">04</span>
+              <h3>Sponda idraulica</h3>
+              <p>Per scaricare anche dove non c'è una banchina. <em>(da confermare)</em></p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 9. PREVENTIVO con rimorchio che si riempie ===== -->
+    <section class="quote" id="preventivo">
+      <div class="wrap quote-grid">
+        <div>
+          <p class="eyebrow">Richiedi un preventivo</p>
+          <h2 class="section-title light">Diteci cosa spedire.<br>Vi rispondiamo noi.</h2>
+
+          <div class="trailer-viz">
+            <div class="trailer" id="trailer" aria-hidden="true"></div>
+            <div class="trailer-cab" aria-hidden="true"></div>
+            <p class="trailer-info mono" id="trailerInfo">0 / 33 bancali EUR</p>
+          </div>
+        </div>
+
+        <form class="quote-form" id="quoteForm">
+          <div class="field-row">
+            <label>Partenza<input name="partenza" required placeholder="Es. Treviglio (BG)"></label>
+            <label>Destinazione<input name="destinazione" required placeholder="Es. Monaco di Baviera"></label>
+          </div>
+          <div class="field-row">
+            <label>N° bancali<input name="bancali" id="palletInput" type="number" min="1" max="200" required placeholder="Es. 12"></label>
+            <label>Data indicativa<input name="data" type="date"></label>
+          </div>
+          <label>Tipo di merce<input name="merce" placeholder="Es. componenti metallici, alimentare secco…"></label>
+          <div class="field-row">
+            <label>Azienda<input name="azienda" required placeholder="Ragione sociale"></label>
+            <label>Telefono<input name="telefono" type="tel" placeholder="Per richiamarvi"></label>
+          </div>
+          <label>Servizio
+            <select name="servizio">
+              <option>Solo trasporto</option>
+              <option>Trasporto + deposito</option>
+              <option>Solo magazzino / stoccaggio</option>
+            </select>
+          </label>
+          <label>Note<textarea name="note" rows="3" placeholder="Misure, pesi, sponda idraulica, orari di scarico…"></textarea></label>
+          <button class="btn btn-full" type="submit">Invia richiesta via email →</button>
+          <p class="form-note">Si apre il vostro programma di posta con la richiesta già compilata, indirizzata a traffico@sopranitrasporti.it.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== 10. LAVORA CON NOI ===== -->
+    <section class="jobs" id="lavora">
+      <div class="wrap jobs-grid">
+        <div>
+          <p class="eyebrow eyebrow-dark">Lavora con noi</p>
+          <h2 class="section-title">Cerchiamo autisti.</h2>
+          <p>Siamo una squadra di oltre 30 persone e cresciamo con i nostri clienti. Se ami la strada e cerchi un posto serio, parliamone.</p>
+          <div class="jobs-img"><img src="assets/stralis-nero.jpg" alt="Motrice Iveco Soprani Trasporti in officina" loading="lazy"></div>
+        </div>
+        <ul class="jobs-list">
+          <li><strong>Patente C / CE</strong><span>Requisito per guidare i nostri mezzi</span></li>
+          <li><strong>CQC merci</strong><span>Carta di qualificazione del conducente</span></li>
+          <li><strong>Tratte nazionali e internazionali</strong><span>Sui nostri bilici e motrici</span></li>
+          <li class="jobs-cta"><a class="btn" href="mailto:traffico@sopranitrasporti.it?subject=Candidatura%20autista">Invia la candidatura</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 11. CONTATTI ===== -->
+    <section class="contacts" id="contatti">
+      <div class="wrap contacts-grid">
+        <div class="contacts-info">
+          <p class="eyebrow">Contatti</p>
+          <h2 class="section-title light">Passate a trovarci a Cortenuova.</h2>
+          <dl>
+            <dt>Indirizzo</dt><dd>Via G. Carducci 5/A<br>24050 Cortenuova (BG)</dd>
+            <dt>Telefono</dt><dd><a href="tel:+390363910749">0363 910749</a></dd>
+            <dt>Email traffico</dt><dd><a href="mailto:traffico@sopranitrasporti.it">traffico@sopranitrasporti.it</a></dd>
+            <dt>Email info</dt><dd><a href="mailto:info@sopranitrasporti.it">info@sopranitrasporti.it</a></dd>
+          </dl>
+          <a class="link-arrow light" href="https://www.facebook.com/p/Soprani-Trasporti-100063509679770/" target="_blank" rel="noopener">Seguici su Facebook →</a>
+        </div>
+        <div class="map-frame">
+          <iframe title="Mappa Soprani Trasporti" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Via+G.+Carducci+5A,+24050+Cortenuova+BG&output=embed"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-row">
+      <span>© <span id="year"></span> Soprani Trasporti S.r.l. — P.IVA / C.F. 02493060160</span>
+      <span>Via G. Carducci 5/A, 24050 Cortenuova (BG)</span>
+    </div>
+  </footer>
+
+  <script src="assets/europe-dots.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
